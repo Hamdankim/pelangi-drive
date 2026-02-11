@@ -1,4 +1,4 @@
-const BACKEND_URL = "https://your-backend.onrender.com/upload";
+const BACKEND_URL = "http://127.0.0.1:8000/upload";
 
 const form = document.getElementById("uploadForm");
 const statusDiv = document.getElementById("status");
