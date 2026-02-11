@@ -1,30 +1,187 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Pelangi Drive</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="logo%20pelangi.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="container">
-    <h1>Pelangi Drive</h1>
-    <p class="subtitle">Upload PDF → Convert → Simpan Laporan</p>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    <div class="bg-grid"></div>
 
-    <form id="uploadForm">
-        <input type="file" id="pdfFile" accept="application/pdf" required />
-        <button type="submit">Upload & Convert</button>
-    </form>
+    <div class="app">
+        <section class="content">
+            <header class="topbar">
+                <div class="brand-inline">
+                    <img class="brand-logo" src="logo%20pelangi.jpeg" alt="Pelangi Drive" />
+                    <span class="page-title">Pelangi Drive</span>
+                </div>
+                <div class="top-actions">
+                    <div class="search">
+                        <input id="searchInput" type="text" placeholder="Search files or folders..." />
+                    </div>
+                </div>
+            </header>
 
-    <div id="status" class="hidden"></div>
+            <div class="toolbar">
+                <div class="breadcrumb-wrap">
+                    <button id="backBtn" class="icon-btn back-btn" type="button" aria-label="Back">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M15.75 5.25a.75.75 0 0 1 0 1.06L10.06 12l5.69 5.69a.75.75 0 1 1-1.06 1.06l-6.22-6.22a.75.75 0 0 1 0-1.06l6.22-6.22a.75.75 0 0 1 1.06 0Z"
+                                fill="currentColor" />
+                        </svg>
+                    </button>
+                    <div id="breadcrumb" class="breadcrumb"></div>
+                </div>
+                <div class="toolbar-actions">
+                    <form id="uploadForm" class="upload">
+                        <input type="file" id="pdfFile" accept="application/pdf" multiple required />
+                        <label for="pdfFile" class="btn subtle">Choose PDF</label>
+                        <span id="fileName" class="file-name">No file selected</span>
+                    </form>
+                    <select id="sortSelect" class="field-input sort-select" aria-label="Sort by">
+                        <option value="name-asc">Sort: Name (A-Z)</option>
+                        <option value="name-desc">Sort: Name (Z-A)</option>
+                        <option value="modified-desc">Sort: Modified (Newest)</option>
+                        <option value="modified-asc">Sort: Modified (Oldest)</option>
+                        <option value="size-desc">Sort: Size (Largest)</option>
+                        <option value="size-asc">Sort: Size (Smallest)</option>
+                        <option value="type-asc">Sort: Type (A-Z)</option>
+                    </select>
+                    <div class="view-toggle" role="group" aria-label="View">
+                        <button id="viewList" class="btn ghost active" type="button">List</button>
+                        <button id="viewGrid" class="btn ghost" type="button">Grid</button>
+                    </div>
+                    <button id="createFolderBtn" class="btn" type="button">+ Folder</button>
+                    <button id="refreshBtn" class="btn">🔄</button>
+                </div>
+            </div>
 
-    <div id="result" class="hidden">
-        <h3>Berhasil</h3>
-        <p id="resultText"></p>
+            <div id="status" class="status hidden"></div>
+
+            <div id="bulkActionsBar" class="bulk-actions-bar hidden">
+                <span id="selectedCount" class="selected-count">0 selected</span>
+                <div class="bulk-actions">
+                    <button id="bulkMoveBtn" class="btn ghost" type="button">Move Selected</button>
+                    <button id="bulkDeleteBtn" class="btn ghost" type="button">Delete Selected</button>
+                    <button id="clearSelectionBtn" class="btn ghost" type="button">Clear</button>
+                </div>
+            </div>
+
+            <div id="fileCard" class="card">
+                <div id="dropOverlay" class="drop-overlay" aria-hidden="true">
+                    Drop PDF files to upload
+                </div>
+                <div class="list-header">
+                    <span>
+                        <input type="checkbox" id="selectAllCheckbox" aria-label="Select all">
+                        Name
+                    </span>
+                    <span>Actions</span>
+                </div>
+                <div id="fileList" class="file-list"></div>
+            </div>
+        </section>
     </div>
-</div>
 
-<script src="script.js"></script>
+    <div id="propertiesModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="propertiesTitle">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="propertiesTitle">Properties</h3>
+                <button id="closeProperties" class="icon-btn" aria-label="Close">✕</button>
+            </div>
+            <div id="propertiesBody" class="modal-body"></div>
+        </div>
+    </div>
+
+    <div id="moveModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="moveTitle">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="moveTitle">Move to Folder</h3>
+                <button id="closeMove" class="icon-btn" aria-label="Close">✕</button>
+            </div>
+            <div class="modal-body">
+                <label class="field-label" for="moveSelect">Select folder</label>
+                <select id="moveSelect" class="field-input"></select>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelMove" class="btn ghost" type="button">Cancel</button>
+                <button id="confirmMove" class="btn primary" type="button">Move</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="successModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+        <div class="modal-card success">
+            <div class="modal-header">
+                <h3 id="successTitle">Success</h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="renameModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="renameTitle">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="renameTitle">Rename</h3>
+                <button id="closeRename" class="icon-btn" aria-label="Close">✕</button>
+            </div>
+            <div class="modal-body">
+                <label class="field-label" for="renameInput">New name</label>
+                <input id="renameInput" class="field-input" type="text" placeholder="Enter new name..." />
+            </div>
+            <div class="modal-footer">
+                <button id="cancelRename" class="btn ghost" type="button">Cancel</button>
+                <button id="confirmRename" class="btn primary" type="button">Rename</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="deleteModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="deleteTitle">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="deleteTitle">Delete File</h3>
+                <button id="closeDelete" class="icon-btn" aria-label="Close">✕</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this file? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelDelete" class="btn ghost" type="button">Cancel</button>
+                <button id="confirmDelete" class="btn primary" type="button">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="createFolderModal" class="modal hidden" role="dialog" aria-modal="true"
+        aria-labelledby="createFolderTitle">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="createFolderTitle">New Folder</h3>
+                <button id="closeCreateFolder" class="icon-btn" aria-label="Close">✕</button>
+            </div>
+            <div class="modal-body">
+                <label class="field-label" for="createFolderInput">Folder name</label>
+                <input id="createFolderInput" class="field-input" type="text" placeholder="Enter folder name..." />
+            </div>
+            <div class="modal-footer">
+                <button id="cancelCreateFolder" class="btn ghost" type="button">Cancel</button>
+                <button id="confirmCreateFolder" class="btn primary" type="button">Create</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
