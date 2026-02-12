@@ -335,32 +335,34 @@ body {
 .list-header,
 .file-row {
     display: grid;
-    grid-template-columns: 40px 1fr 100px 150px 70px;
-    gap: 12px;
-    padding: 14px 22px;
+    grid-template-columns:
+        48px minmax(0, 1fr) 110px 160px 80px;
+    column-gap: 16px;
+    padding: 14px 24px;
     align-items: center;
 }
 
-.list-header {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    border-bottom: 1px solid var(--border);
+.list-header>div:nth-child(1),
+.list-header>div:nth-child(2),
+.list-header>div:nth-child(3),
+.list-header>div:nth-child(4),
+.list-header>div:nth-child(5) {
+    display: flex;
+    align-items: center;
 }
 
-.file-row {
-    font-size: 14px;
-    border-bottom: 1px solid #f1f5f9;
-    transition: background 0.2s ease;
-}
-
-.file-row>div:nth-child(3),
-.file-row>div:nth-child(4) {
+.list-header>div:nth-child(3),
+.file-size-cell {
     text-align: right;
 }
 
-.file-row>div:nth-child(5) {
+.list-header>div:nth-child(4),
+.file-modified-cell {
+    text-align: right;
+}
+
+.list-header>div:nth-child(5),
+.actions {
     text-align: center;
 }
 
@@ -740,9 +742,10 @@ textarea {
 
     .list-header,
     .file-row {
-        grid-template-columns: 40px 1fr 80px 120px 45px;
+        grid-template-columns:
+            44px minmax(0, 1fr) 90px 130px 60px;
+        column-gap: 12px;
         padding: 12px 14px;
-        gap: 8px;
     }
 
     .list-header {
@@ -904,9 +907,10 @@ textarea {
 
     .list-header,
     .file-row {
-        grid-template-columns: 40px 1fr 70px 100px 40px;
+        grid-template-columns:
+            40px minmax(0, 1fr) 70px 100px 50px;
+        column-gap: 8px;
         padding: 10px 12px;
-        gap: 6px;
     }
 
     .file-row {
