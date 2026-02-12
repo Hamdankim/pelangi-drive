@@ -7,11 +7,8 @@ const fileList = document.getElementById("fileList");
 const searchInput = document.getElementById("searchInput");
 const sortSelect = document.getElementById("sortSelect");
 const breadcrumb = document.getElementById("breadcrumb");
-const refreshBtn = document.getElementById("refreshBtn");
 const fileCard = document.getElementById("fileCard");
 const dropOverlay = document.getElementById("dropOverlay");
-const viewListBtn = document.getElementById("viewList");
-const viewGridBtn = document.getElementById("viewGrid");
 const backBtn = document.getElementById("backBtn");
 const createFolderBtn = document.getElementById("createFolderBtn");
 const propertiesModal = document.getElementById("propertiesModal");
@@ -64,13 +61,6 @@ const showSuccessDialog = () => {
     showSuccessDialog.timerId = setTimeout(() => {
         successModal.classList.add("hidden");
     }, 2000);
-};
-
-const setViewMode = (mode) => {
-    const isGrid = mode === "grid";
-    fileCard.classList.toggle("grid-view", isGrid);
-    viewGridBtn.classList.toggle("active", isGrid);
-    viewListBtn.classList.toggle("active", !isGrid);
 };
 
 const openSpreadsheet = async (fileId) => {
@@ -598,9 +588,6 @@ clearSelectionBtn?.addEventListener("click", clearSelection);
 searchInput.addEventListener("input", updateList);
 if (sortSelect) sortSelect.addEventListener("change", updateList);
 breadcrumb.addEventListener("click", handleBreadcrumb);
-refreshBtn.addEventListener("click", loadFiles);
-viewListBtn.addEventListener("click", () => setViewMode("list"));
-viewGridBtn.addEventListener("click", () => setViewMode("grid"));
 backBtn.addEventListener("click", handleBack);
 createFolderBtn.addEventListener("click", createFolder);
 fileCard.addEventListener("dragover", (event) => {
@@ -890,5 +877,4 @@ document.addEventListener("keydown", (event) => {
 });
 
 renderBreadcrumb();
-setViewMode("list");
 loadFiles();

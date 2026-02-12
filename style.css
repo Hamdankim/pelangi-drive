@@ -262,15 +262,6 @@ body {
     border-color: transparent;
 }
 
-.view-toggle {
-    display: inline-flex;
-    gap: 6px;
-    padding: 4px;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    background: var(--card);
-}
-
 .status {
     background: rgba(0, 163, 122, 0.12);
     border: 1px solid rgba(0, 163, 122, 0.2);
@@ -339,10 +330,6 @@ body {
 
 .card.drag-over .drop-overlay {
     opacity: 1;
-}
-
-.card.grid-view .list-header {
-    display: none;
 }
 
 .list-header,
@@ -430,40 +417,6 @@ body {
 .actions {
     display: flex;
     justify-content: flex-end;
-}
-
-.card.grid-view .file-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
-    padding: 16px 18px 22px;
-}
-
-.card.grid-view .file-row {
-    grid-template-columns: 1fr;
-    gap: 12px;
-    border: 1px solid #eef2f7;
-    border-radius: 16px;
-    padding: 16px;
-    background: #ffffff;
-}
-
-.card.grid-view .file-row:hover {
-    background: #f8fafc;
-}
-
-.card.grid-view .actions {
-    justify-content: flex-start;
-}
-
-.card.grid-view .file-name-cell {
-    min-width: 0;
-}
-
-.card.grid-view .file-name-cell span:last-child {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .action-btn {
@@ -720,8 +673,7 @@ textarea {
 
     .toolbar-actions>button,
     .upload,
-    .sort-select,
-    .view-toggle {
+    .sort-select {
         width: 100%;
         font-size: 14px;
         padding: 12px;
@@ -838,16 +790,6 @@ textarea {
         min-width: 140px;
     }
 
-    .card.grid-view .file-list {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 12px;
-        padding: 12px 14px 16px;
-    }
-
-    .card.grid-view .file-row {
-        padding: 12px;
-    }
-
     .status {
         font-size: 13px;
         padding: 10px 12px;
@@ -912,10 +854,6 @@ textarea {
         grid-template-columns: 1fr 45px;
         padding: 10px 12px;
         gap: 6px;
-    }
-
-    .list-header {
-        display: none;
     }
 
     .file-row {
@@ -1005,17 +943,6 @@ textarea {
         padding: 8px 10px;
     }
 
-    .card.grid-view .file-list {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 8px;
-        padding: 10px 12px;
-    }
-
-    .card.grid-view .file-row {
-        padding: 10px;
-        border-radius: 12px;
-    }
-
     .breadcrumb {
         font-size: 12px;
     }
@@ -1028,16 +955,6 @@ textarea {
     .back-btn svg {
         width: 16px;
         height: 16px;
-    }
-
-    .view-toggle {
-        font-size: 12px;
-        padding: 3px;
-    }
-
-    .view-toggle .btn {
-        padding: 6px 10px;
-        font-size: 12px;
     }
 
     .property-row {
