@@ -346,6 +346,25 @@ body {
     border-bottom: 1px solid var(--border);
 }
 
+.list-header .file-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.list-header .file-size-cell,
+.list-header .file-modified-cell {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.list-header .actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .file-row {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr;
@@ -360,6 +379,10 @@ body {
 .list-header>div:nth-child(4) {
     display: flex;
     align-items: center;
+}
+
+.list-header>div:nth-child(1) {
+    text-align: left;
 }
 
 .list-header>div:nth-child(2),
