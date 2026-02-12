@@ -770,6 +770,11 @@ textarea {
         white-space: nowrap;
     }
 
+    .file-name {
+        max-width: 110px;
+        font-size: 12px;
+    }
+
     .file-icon {
         width: 32px;
         height: 32px;
@@ -829,8 +834,9 @@ textarea {
     }
 
     .file-name {
-        max-width: 100px;
-        font-size: 11px;
+        max-width: 85px;
+        font-size: 10px;
+        flex-shrink: 0;
     }
 
     .action-menu {
@@ -897,7 +903,16 @@ textarea {
     .upload,
     .sort-select {
         font-size: 13px;
-        padding: 10px;
+        padding: 8px;
+    }
+
+    .upload {
+        padding: 5px 8px;
+        gap: 6px;
+    }
+
+    .btn {
+        padding: 8px 10px;
     }
 
     .list-header,
