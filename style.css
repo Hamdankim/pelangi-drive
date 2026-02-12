@@ -392,30 +392,30 @@ body {
 }
 
 .file-checkbox {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
     cursor: pointer;
     accent-color: var(--primary);
     -webkit-user-select: none;
     user-select: none;
-    min-width: 44px;
-    min-height: 44px;
-    padding: 13px;
-    margin: -13px;
+    min-width: 36px;
+    min-height: 36px;
+    padding: 11px;
+    margin: -11px;
 }
 
 #selectAllCheckbox {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     cursor: pointer;
     accent-color: var(--primary);
     margin-right: 8px;
     -webkit-user-select: none;
     user-select: none;
-    min-width: 44px;
-    min-height: 44px;
-    padding: 14px;
-    margin: -14px 8px -14px -14px;
+    min-width: 36px;
+    min-height: 36px;
+    padding: 11px;
+    margin: -11px 8px -11px -11px;
 }
 
 .file-icon {
