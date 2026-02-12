@@ -209,10 +209,6 @@ body {
     white-space: nowrap;
 }
 
-.sort-select {
-    min-width: 170px;
-}
-
 .btn {
     border: 1px solid var(--border);
     background: var(--card);
@@ -768,8 +764,7 @@ textarea {
     }
 
     .toolbar-actions>button,
-    .upload,
-    .sort-select {
+    .upload {
         width: 100%;
         font-size: 14px;
         padding: 12px;
@@ -933,8 +928,7 @@ textarea {
     }
 
     .toolbar-actions>button,
-    .upload,
-    .sort-select {
+    .upload {
         font-size: 13px;
         padding: 8px;
     }

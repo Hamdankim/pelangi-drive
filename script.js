@@ -5,7 +5,6 @@ const fileInput = document.getElementById("pdfFile");
 const fileNameLabel = document.getElementById("fileName");
 const fileList = document.getElementById("fileList");
 const searchInput = document.getElementById("searchInput");
-const sortSelect = document.getElementById("sortSelect");
 const breadcrumb = document.getElementById("breadcrumb");
 const fileCard = document.getElementById("fileCard");
 const dropOverlay = document.getElementById("dropOverlay");
@@ -47,6 +46,7 @@ let pendingMoveId = null;
 let pendingRenameId = null;
 let pendingDeleteId = null;
 let selectedIds = new Set();
+let currentSortType = "name-asc";
 
 const showStatus = (message, isError = false) => {
     statusDiv.classList.remove("hidden");
@@ -261,7 +261,7 @@ const updateList = () => {
     const filtered = currentItems.filter((file) =>
         (file.name || "").toLowerCase().includes(keyword)
     );
-    const sorted = sortItems(filtered, sortSelect?.value || "name-asc");
+    const sorted = sortItems(filtered, currentSortType);
     renderFiles(sorted);
     updateBulkActionsBar();
     updateSelectAllCheckbox();
@@ -588,22 +588,17 @@ fileList.addEventListener("change", (event) => {
 selectAllCheckbox?.addEventListener("change", toggleSelectAll);
 clearSelectionBtn?.addEventListener("click", clearSelection);
 searchInput.addEventListener("input", updateList);
-if (sortSelect) sortSelect.addEventListener("change", updateList);
 
 // Header column sorting
 document.querySelectorAll(".header-sortable").forEach(header => {
     header.addEventListener("click", () => {
         const sortType = header.dataset.sort;
-        let newSortValue = `${sortType}-asc`;
-
-        if (sortSelect) {
-            const currentSort = sortSelect.value;
-            if (currentSort.startsWith(sortType) && currentSort.endsWith("-asc")) {
-                newSortValue = `${sortType}-desc`;
-            }
-            sortSelect.value = newSortValue;
-            sortSelect.dispatchEvent(new Event("change"));
+        if (currentSortType.startsWith(sortType) && currentSortType.endsWith("-asc")) {
+            currentSortType = `${sortType}-desc`;
+        } else {
+            currentSortType = `${sortType}-asc`;
         }
+        updateList();
     });
 });
 
