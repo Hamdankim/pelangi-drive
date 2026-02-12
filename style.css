@@ -335,7 +335,7 @@ body {
 .list-header,
 .file-row {
     display: grid;
-    grid-template-columns: 1.5fr 100px 120px 50px;
+    grid-template-columns: 40px 1fr 100px 150px 70px;
     gap: 12px;
     padding: 14px 22px;
     align-items: center;
@@ -353,6 +353,15 @@ body {
     font-size: 14px;
     border-bottom: 1px solid #f1f5f9;
     transition: background 0.2s ease;
+}
+
+.file-row>div:nth-child(3),
+.file-row>div:nth-child(4) {
+    text-align: right;
+}
+
+.file-row>div:nth-child(5) {
+    text-align: center;
 }
 
 .file-row.selected {
@@ -373,10 +382,11 @@ body {
 
 .file-name-cell {
     display: flex;
-    align-items: flex-start;
-    gap: 10px;
+    align-items: center;
+    gap: 8px;
     font-weight: 600;
     min-width: 0;
+    overflow: hidden;
 }
 
 .file-name-text {
@@ -391,11 +401,18 @@ body {
     font-size: 13px;
     color: var(--muted);
     text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .file-modified-cell {
     font-size: 13px;
     color: var(--muted);
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .file-meta {
@@ -416,6 +433,7 @@ body {
     user-select: none;
     margin-top: 2px;
     flex-shrink: 0;
+    justify-self: center;
 }
 
 #selectAllCheckbox {
@@ -423,9 +441,10 @@ body {
     height: 14px;
     cursor: pointer;
     accent-color: var(--primary);
-    margin-right: 6px;
+    margin-right: 0;
     -webkit-user-select: none;
     user-select: none;
+    justify-self: center;
 }
 
 .file-icon {
@@ -447,7 +466,7 @@ body {
 
 .actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .action-btn {
@@ -721,7 +740,7 @@ textarea {
 
     .list-header,
     .file-row {
-        grid-template-columns: 1fr 80px 100px 45px;
+        grid-template-columns: 40px 1fr 80px 120px 45px;
         padding: 12px 14px;
         gap: 8px;
     }
@@ -885,7 +904,7 @@ textarea {
 
     .list-header,
     .file-row {
-        grid-template-columns: 1fr 70px 90px 40px;
+        grid-template-columns: 40px 1fr 70px 100px 40px;
         padding: 10px 12px;
         gap: 6px;
     }
