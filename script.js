@@ -534,6 +534,7 @@ fileInput.addEventListener("change", () => {
 
     uploadFiles(selected).finally(() => {
         fileInput.value = "";
+        fileNameLabel.textContent = "No file selected";
     });
 });
 
@@ -700,32 +701,63 @@ confirmCreateFolderBtn.addEventListener("click", async () => {
 
 bulkDeleteBtn?.addEventListener("click", async () => {
     if (selectedIds.size === 0) return;
-    const confirmed = confirm(
-        `Are you sure you want to delete ${selectedIds.size} file(s)? This action cannot be undone.`
-    );
-    if (!confirmed) return;
 
-    const idsToDelete = Array.from(selectedIds);
-    let successCount = 0;
-    let errorCount = 0;
+    // Show dialog instead of confirm()
+    deleteModal.classList.remove("hidden");
+    const deleteMessage = deleteModal.querySelector(".modal-body");
+    if (deleteMessage) {
+        deleteMessage.innerHTML = `<p>Are you sure you want to delete ${selectedIds.size} file(s)? This action cannot be undone.</p>`;
+    }
 
-    for (const id of idsToDelete) {
-        try {
-            await requestJson(`${API_BASE}/files/${id}`, { method: "DELETE" });
-            successCount++;
-            selectedIds.delete(id);
-        } catch (error) {
-            errorCount++;
-            showStatus(`Failed to delete some files: ${error.message}`, true);
+    // Store bulk mode
+    pendingDeleteId = "BULK";
+});
+
+// Update delete confirmation to handle bulk delete
+const originalDeleteConfirm = confirmDeleteBtn.onclick;
+confirmDeleteBtn.onclick = null;
+confirmDeleteBtn.addEventListener("click", async () => {
+    if (pendingDeleteId === "BULK") {
+        const idsToDelete = Array.from(selectedIds);
+        let successCount = 0;
+        let errorCount = 0;
+
+        for (const id of idsToDelete) {
+            try {
+                await requestJson(`${API_BASE}/files/${id}`, { method: "DELETE" });
+                successCount++;
+                selectedIds.delete(id);
+            } catch (error) {
+                errorCount++;
+                showStatus(`Failed to delete some files: ${error.message}`, true);
+            }
         }
+
+        if (successCount > 0) {
+            showSuccessDialog();
+            await loadFiles();
+        }
+        if (errorCount === 0) {
+            statusDiv.classList.add("hidden");
+        }
+        closeDeleteModal();
+        pendingDeleteId = null;
+        return;
     }
 
-    if (successCount > 0) {
-        showSuccessDialog();
-        await loadFiles();
-    }
-    if (errorCount === 0) {
+    if (!pendingDeleteId) return;
+    try {
+        showStatus("Deleting file...");
+        await requestJson(`${API_BASE}/files/${pendingDeleteId}`, {
+            method: "DELETE"
+        });
         statusDiv.classList.add("hidden");
+        showSuccessDialog();
+        closeDeleteModal();
+        selectedIds.delete(pendingDeleteId);
+        await loadFiles();
+    } catch (error) {
+        showStatus(error.message || "Failed to delete file.", true);
     }
 });
 
