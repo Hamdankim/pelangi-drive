@@ -229,11 +229,10 @@ const renderFiles = (list) => {
             <div class="file-name-cell">
                 <input type="checkbox" class="file-checkbox" data-id="${file.id}" ${selectedIds.has(file.id) ? "checked" : ""} aria-label="Select ${file.name}">
                 <span class="file-icon">${fileIconMarkup(file)}</span>
-                <div class="file-info">
-                    <span class="file-name-text">${file.name}</span>
-                    <span class="file-meta">${formatBytes(file.size)} • ${formatDate(file.modifiedTime)}</span>
-                </div>
+                <span class="file-name-text">${file.name}</span>
             </div>
+            <div class="file-size-cell">${formatBytes(file.size)}</div>
+            <div class="file-modified-cell">${formatDate(file.modifiedTime)}</div>
             <div class="actions">
                 <div class="menu-wrapper">
                     <button class="action-btn" data-action="menu" data-id="${file.id}" aria-label="Actions" title="Actions">

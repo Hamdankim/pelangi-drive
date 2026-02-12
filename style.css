@@ -335,7 +335,7 @@ body {
 .list-header,
 .file-row {
     display: grid;
-    grid-template-columns: 1fr 120px;
+    grid-template-columns: 1.5fr 100px 120px 50px;
     gap: 12px;
     padding: 14px 22px;
     align-items: center;
@@ -379,19 +379,23 @@ body {
     min-width: 0;
 }
 
-.file-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 0;
-    flex: 1;
-}
-
 .file-name-text {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    flex: 1;
+}
+
+.file-size-cell {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: right;
+}
+
+.file-modified-cell {
+    font-size: 13px;
+    color: var(--muted);
 }
 
 .file-meta {
@@ -717,7 +721,7 @@ textarea {
 
     .list-header,
     .file-row {
-        grid-template-columns: 1fr 50px;
+        grid-template-columns: 1fr 80px 100px 45px;
         padding: 12px 14px;
         gap: 8px;
     }
@@ -733,6 +737,11 @@ textarea {
     .file-name-cell {
         gap: 8px;
         min-width: 0;
+    }
+
+    .file-size-cell,
+    .file-modified-cell {
+        font-size: 12px;
     }
 
     .file-meta {
@@ -876,13 +885,18 @@ textarea {
 
     .list-header,
     .file-row {
-        grid-template-columns: 1fr 45px;
+        grid-template-columns: 1fr 70px 90px 40px;
         padding: 10px 12px;
         gap: 6px;
     }
 
     .file-row {
         font-size: 12px;
+    }
+
+    .file-size-cell,
+    .file-modified-cell {
+        font-size: 10px;
     }
 
     .file-icon {
