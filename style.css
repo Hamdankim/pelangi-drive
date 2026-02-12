@@ -344,23 +344,19 @@ body {
 .list-header>div:nth-child(1),
 .list-header>div:nth-child(2),
 .list-header>div:nth-child(3),
-.list-header>div:nth-child(4),
-.list-header>div:nth-child(5) {
+.list-header>div:nth-child(4) {
     display: flex;
     align-items: center;
 }
 
+.list-header>div:nth-child(2),
 .list-header>div:nth-child(3),
-.file-size-cell {
-    text-align: right;
-}
-
-.list-header>div:nth-child(4),
+.file-size-cell,
 .file-modified-cell {
     text-align: right;
 }
 
-.list-header>div:nth-child(5),
+.list-header>div:nth-child(4),
 .actions {
     text-align: center;
 }
