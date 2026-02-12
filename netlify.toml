@@ -8,3 +8,9 @@
     X-Frame-Options = "DENY"
     Referrer-Policy = "no-referrer"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://pelangidrivebe.netlify.app/.netlify/functions/api/:splat"
+  status = 200
+  force = true
