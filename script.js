@@ -589,6 +589,24 @@ selectAllCheckbox?.addEventListener("change", toggleSelectAll);
 clearSelectionBtn?.addEventListener("click", clearSelection);
 searchInput.addEventListener("input", updateList);
 if (sortSelect) sortSelect.addEventListener("change", updateList);
+
+// Header column sorting
+document.querySelectorAll(".header-sortable").forEach(header => {
+    header.addEventListener("click", () => {
+        const sortType = header.dataset.sort;
+        let newSortValue = `${sortType}-asc`;
+
+        if (sortSelect) {
+            const currentSort = sortSelect.value;
+            if (currentSort.startsWith(sortType) && currentSort.endsWith("-asc")) {
+                newSortValue = `${sortType}-desc`;
+            }
+            sortSelect.value = newSortValue;
+            sortSelect.dispatchEvent(new Event("change"));
+        }
+    });
+});
+
 breadcrumb.addEventListener("click", handleBreadcrumb);
 backBtn.addEventListener("click", handleBack);
 createFolderBtn.addEventListener("click", createFolder);

@@ -357,12 +357,25 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    gap: 6px;
+    cursor: pointer;
 }
 
 .list-header .actions {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.sort-icon {
+    font-size: 10px;
+    opacity: 0.6;
+    flex-shrink: 0;
+}
+
+.header-sortable:hover .sort-icon {
+    opacity: 1;
+    color: var(--primary);
 }
 
 .file-row {

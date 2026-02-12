@@ -90,12 +90,19 @@
                     Drop PDF files to upload
                 </div>
                 <div class="list-header">
-                    <div class="file-name-cell">
+                    <div class="file-name-cell header-sortable" data-sort="name">
                         <input type="checkbox" id="selectAllCheckbox" aria-label="Select all">
                         Name
+                        <span class="sort-icon">⇅</span>
                     </div>
-                    <div class="file-size-cell">Size</div>
-                    <div class="file-modified-cell">Modified</div>
+                    <div class="file-size-cell header-sortable" data-sort="size">
+                        Size
+                        <span class="sort-icon">⇅</span>
+                    </div>
+                    <div class="file-modified-cell header-sortable" data-sort="modified">
+                        Modified
+                        <span class="sort-icon">⇅</span>
+                    </div>
                     <div class="actions">Actions</div>
                 </div>
                 <div id="fileList" class="file-list"></div>
